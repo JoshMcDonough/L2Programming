@@ -1,0 +1,165 @@
+<!doctype html>
+
+<body>
+    <canvas id="gameCanvas" width="600" height="500"></canvas>
+    <script>
+        var canvas, canvasContext;
+
+        window.onload = function() {
+            canvas = document.getElementById('gameCanvas');
+            canvasContext = canvas.getContext('2d');
+
+            document.addEventListener('keydown', keyPressed);
+            document.addEventListener('keyup', keyReleased);
+
+
+            setInterval(mainloop, 1000 / 50);
+        } //end func
+
+        var player = new Image();
+        player.src = 'player.png';
+
+        // Player Variables
+        var playerXpos = 0;
+        var playerYpos = 0;
+        const PLAYER_SIZE = 20;
+        const PLAYER_WIDTH = 37;
+        const PLAYER_HEIGHT = 49;
+        var playerXspeed = 5;
+        var playerYspeed = 5;
+        var playerSrcX = 0;
+        var playerSrcY = 0;
+        var playerSpriteImgNum = 0;
+
+
+        var playerSprites = [];
+        var playertotal = 16;
+        var playerRowCount = 0;
+
+
+        //player movement variables
+        var leftKeyPressed = false;
+        var rightKeyPressed = false;
+        var upKeyPressed = false;
+        var downKeyPressed = false;
+
+        const LEFT_KEY = 37;
+        const RIGHT_KEY = 39;
+        const UP_KEY = 38;
+        const DOWN_KEY = 40;
+
+
+        function mainloop() {
+            colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+
+            drawImages(player,
+                playerSrcX, playerSrcY,
+                PLAYER_WIDTH, PLAYER_HEIGHT,
+                playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT
+            );
+
+            playerAnimate();
+        } //end func
+
+        function keyPressed(evt) {
+            if (evt.keyCode == LEFT_KEY) {
+                leftKeyPressed = true;
+            }
+            if (evt.keyCode == RIGHT_KEY) {
+                rightKeyPressed = true;
+            }
+            if (evt.keyCode == UP_KEY) {
+                upKeyPressed = true;
+            }
+            if (evt.keyCode == DOWN_KEY) {
+                downKeyPressed = true;
+            }
+        } // end func
+
+        function keyReleased(evt) {
+            if (evt.keyCode == LEFT_KEY) {
+                leftKeyPressed = false;
+            }
+            if (evt.keyCode == RIGHT_KEY) {
+                rightKeyPressed = false;
+            }
+            if (evt.keyCode == UP_KEY) {
+                upKeyPressed = false;
+            }
+            if (evt.keyCode == DOWN_KEY) {
+                downKeyPressed = false;
+            }
+        } // end func
+        
+        for (var i = 0; i < playertotal; i++) {
+            playerSprites[i] = new Array(2);
+
+            playerSprites[i][0] = PLAYER_WIDTH * (i % 4);
+
+            if (i != 0 && i % 4 == 0) {
+                playerRowCount++;
+                playerSprites[i][1] = PLAYER_HEIGHT * playerRowCount;
+            } else {
+                playerSprites[i][1] = PLAYER_HEIGHT * playerRowCount;
+            }
+
+        } // end func
+
+
+        function playerAnimate() {
+            playerSrcX = playerSprites[Math.floor(playerSpriteImgNum)][0];
+            playerSrcY = playerSprites[Math.floor(playerSpriteImgNum)][1];
+
+
+            if (leftKeyPressed) {
+                playerSpriteImgNum += 0.1;
+                playerXpos -= playerXspeed;
+
+                if (playerSpriteImgNum > 11 || playerSpriteImgNum < 8) {
+                    playerSpriteImgNum = 8;
+                }
+            } //end left move
+
+
+            if (rightKeyPressed) {
+                playerSpriteImgNum += 0.1;
+                playerXpos += playerXspeed;
+
+                if (playerSpriteImgNum > 7 || playerSpriteImgNum < 4) {
+                    playerSpriteImgNum = 4;
+                }
+            } //end right move
+
+            if (upKeyPressed) {
+                playerSpriteImgNum += 0.1;
+                playerYpos -= playerYspeed;
+
+                if (playerSpriteImgNum > 15 || playerSpriteImgNum < 12) {
+                    playerSpriteImgNum = 12;
+                }
+            } //end up move
+
+            if (downKeyPressed) {
+                playerSpriteImgNum += 0.1;
+                playerYpos += playerYspeed;
+
+                if (playerSpriteImgNum > 3 || playerSpriteImgNum < 0) {
+                    playerSpriteImgNum = 0;
+                }
+            } //end down move
+
+            if (playerSpriteImgNum >= playertotal) {
+                playerSpriteImgNum = 0;
+            }
+        } //end func
+
+        function colorRect(x, y, w, h, c) {
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x, y, w, h);
+        } //end func
+
+        function drawImages(src, sx, sy, sw, sh, dx, dy, dw, dh) {
+            canvasContext.drawImage(src, sx, sy, sw, sh, dx, dy, dw, dh);
+        }
+
+    </script>
