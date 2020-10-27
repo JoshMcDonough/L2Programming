@@ -17,7 +17,9 @@
         } //end func
 
         var player = new Image();
+        var carImg = new Image();
         player.src = 'player.png';
+        carImg.src = 'car.png';
 
         // Player Variables
         var playerXpos = 0;
@@ -30,7 +32,15 @@
         var playerSrcX = 0;
         var playerSrcY = 0;
         var playerSpriteImgNum = 0;
-
+        
+        //Car Vars
+        var carXpos = 0;
+        var carYpos = 0;
+//        var minSpeed = 0;
+//        var maxSpeed = 0;
+        var carXspeed = 2;
+        var carYspeed = 0;
+        const CAR_SIZE = 30;
 
         var playerSprites = [];
         var playertotal = 16;
@@ -51,12 +61,14 @@
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+            drawImg(carImg, carXpos, carYpos, CAR_SIZE, CAR_SIZE);
 
             drawImages(player,
                 playerSrcX, playerSrcY,
                 PLAYER_WIDTH, PLAYER_HEIGHT,
                 playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT
             );
+            
 
             playerAnimate();
         } //end func
@@ -152,7 +164,13 @@
                 playerSpriteImgNum = 0;
             }
         } //end func
-
+        
+         
+        
+         function drawImg(src, x, y, w, h) {
+            canvasContext.drawImage(src, x, y, w, h);
+        } //end func
+        
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
