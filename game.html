@@ -32,12 +32,12 @@
         var playerSrcX = 0;
         var playerSrcY = 0;
         var playerSpriteImgNum = 0;
-        
+
         //Car Vars
         var carXpos = 0;
         var carYpos = 0;
-//        var minSpeed = 0;
-//        var maxSpeed = 0;
+        //        var minSpeed = 0;
+        //        var maxSpeed = 0;
         var carXspeed = 2;
         var carYspeed = 0;
         const CAR_SIZE = 30;
@@ -58,6 +58,10 @@
         const UP_KEY = 38;
         const DOWN_KEY = 40;
 
+        //Cars in game
+        var cars = [];
+        var totalCars = 10;
+
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
@@ -68,7 +72,7 @@
                 PLAYER_WIDTH, PLAYER_HEIGHT,
                 playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT
             );
-            
+
 
             playerAnimate();
         } //end func
@@ -102,7 +106,7 @@
                 downKeyPressed = false;
             }
         } // end func
-        
+
         for (var i = 0; i < playertotal; i++) {
             playerSprites[i] = new Array(2);
 
@@ -164,13 +168,13 @@
                 playerSpriteImgNum = 0;
             }
         } //end func
-        
-         
-        
-         function drawImg(src, x, y, w, h) {
+
+
+
+        function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
         } //end func
-        
+
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
