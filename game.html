@@ -1,7 +1,12 @@
 <!doctype html>
 
+<head>
+    <title>Road Crossing</title>
+    <!--  Damien Ward-->
+</head>
+
 <body>
-    <canvas id="gameCanvas" width="600" height="500"></canvas>
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
     <script>
         var canvas, canvasContext;
 
@@ -18,8 +23,10 @@
 
         var player = new Image();
         var carImg = new Image();
-        player.src = 'player.png';
-        carImg.src = 'car.png';
+        var bg = new Image();
+        bg.src = 'images/bg.png';
+        player.src = 'images/player.png';
+        carImg.src = 'images/car.png';
 
         // Player Variables
         var playerXpos = 0;
@@ -36,8 +43,8 @@
         //Car Vars
         var carXpos = 0;
         var carYpos = 0;
-        //        var minSpeed = 0;
-        //        var maxSpeed = 0;
+        var minSpeed = 0;
+        var maxSpeed = 0;
         var carXspeed = 2;
         var carYspeed = 0;
         const CAR_SIZE = 30;
@@ -64,7 +71,7 @@
 
 
         function mainloop() {
-            colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+            drawImg(bg, 0, 0, canvas.width, canvas.height); // Game background
             drawImg(carImg, carXpos, carYpos, CAR_SIZE, CAR_SIZE);
 
             drawImages(player,
@@ -173,7 +180,7 @@
             if (playerYpos <= 0) {
                 playerYpos = (canvas.height - PLAYER_SIZE * 2);
                 playerXpos = (canvas.width / 2) - (PLAYER_SIZE / 2)
-//                level++;
+                //                level++;
                 // When player is touching top edge of screen level up and spawn at the bottom of the screen
             }
             if (playerSpriteImgNum >= playertotal) {
