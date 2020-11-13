@@ -6,13 +6,23 @@
 </head>
 
 <body>
-    <h1> Road Cross</h1>
+    <h1> Road Cross</h1> <br>
+    <p>Use the arrow keys to move.<br> Avoid the cars to cross the road!</p>
     <canvas id="gameCanvas" width="800" height="500"></canvas>
 
     <style>
         h1 {
             color: white;
             text-align: center;
+            font-family: sans-serif;
+            font-size: 30px;
+        }
+
+        p {
+            color: white;
+            text-align: left;
+            font-family: cursive;
+            font-size: 20px;
         }
 
 
@@ -113,7 +123,7 @@
         //score
         var score = 0;
         var lives = 3;
-        
+
 
         var startingPos = true;
         var gameRun = true;
@@ -177,7 +187,7 @@
                     car.carXspeed = Math.floor(Math.random() * (maxSpeed - minSpeed)) + minSpeed;
                 }
                 if (car.carDypos + (car.carDheight - 1.5) > playerYpos && car.carDypos < playerYpos + (PLAYER_HEIGHT - 1.5) && car.carDxpos + (car.carDwidth - 1.5) > playerXpos && car.carDxpos < playerXpos + (PLAYER_WIDTH - 1.5)) {
-                    playerYpos   = canvas.height - PLAYER_HEIGHT;
+                    playerYpos = canvas.height - PLAYER_HEIGHT;
                     lives--; //causes the player to lose a life each time it is hit by the car
                 } //collision mechanics
             })
@@ -262,7 +272,7 @@
                     playerSpriteImgNum = 12;
                 }
             } //end up move && allows spritesheet to work, and player to move, stop player from going past top wall
-                
+
 
             if (downKeyPressed && playerYpos < canvas.height - PLAYER_SIZE * 2) {
                 playerSpriteImgNum += antiFrameRate;
